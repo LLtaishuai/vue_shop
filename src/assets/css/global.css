@@ -5,3 +5,29 @@ body,
     margin: 0;
     padding: 0;
 }
+/* 仅input textarea文字可选 */
+* {
+    user-select: none;
+}
+input,
+textarea {
+    user-select: auto;
+}
+/* 全局面包屑导航样式 */
+.el-breadcrumb {
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+/* 全局卡片样式 */
+.el-card {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
+}
+/* 全局表格样式 */
+.el-table {
+    margin-top: 15px;
+    font-size: 12px;
+}
+/* 分页器全局样式 */
+.el-pagination {
+    margin-top: 15px;
+}

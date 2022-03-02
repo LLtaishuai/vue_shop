@@ -10,15 +10,20 @@
     >
     <el-container>
       <!-- 侧边栏 -->
-      <el-aside width="200px">
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <!-- 菜单展开收缩按钮 -->
+        <div class="toggle-button" @click="isCollapse = !isCollapse">|||</div>
         <!-- 侧边菜单 -->
         <el-menu
-          default-active="2"
+          :default-active="activeIndex"
           class="el-menu-vertical-demo"
           background-color="#333744"
           text-color="#fff"
           active-text-color="#ffd04b"
           unique-opened
+          :collapse="isCollapse"
+          :collapse-transition="false"
+          router
         >
           <!-- 一级菜单 -->
           <el-submenu :index="data.id + ''" v-for="data in menulist" :key="data.id">
@@ -27,7 +32,7 @@
               <span>{{data.authName}}</span>
             </template>
             <!-- 二级菜单 -->
-            <el-menu-item :index="item.id + ''" v-for="item in data.children" :key="item.id">
+            <el-menu-item :index="'/' + item.path" v-for="item in data.children" :key="item.id" @click="saveActiveState('/' + item.path)">
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{item.authName}}</span>
@@ -37,7 +42,9 @@
         </el-menu>
       </el-aside>
       <!-- 主要内容 -->
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -53,11 +60,14 @@ export default {
         101: 'iconfont icon-shangpin',
         102: 'iconfont icon-danju',
         145: 'iconfont icon-baobiao'
-      }
+      },
+      isCollapse: false,
+      activeIndex: ''
     }
   },
   created () {
     this.getMeunList()
+    this.activeIndex = window.sessionStorage.getItem('activeIndex')
   },
   methods: {
     logout () {
@@ -70,7 +80,12 @@ export default {
         return this.$message.error(res.meta.msg)
       }
       this.menulist = res.data
-      console.log(res)
+      // console.log(res)
+    },
+    // 保存被选中的二级菜单的index
+    saveActiveState (activeIndex) {
+      window.sessionStorage.setItem('activeIndex', activeIndex)
+      this.activeIndex = activeIndex
     }
   }
 }
@@ -107,5 +122,13 @@ export default {
 }
 .el-menu {
   border-right: none;
+}
+.toggle-button {
+  color: #fff;
+  line-height: 24px;
+  letter-spacing: 3px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #4a5064;
 }
 </style>
