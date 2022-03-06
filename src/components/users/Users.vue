@@ -41,7 +41,7 @@
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="delUser(scope.row.id)"></el-button>
             <!-- 分配角色按钮 -->
             <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              <el-button type="warning" icon="el-icon-setting" size="mini"  @click="setRoleDialogOpen(scope.row)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -107,6 +107,28 @@
           <el-button type="primary" @click="editUser">确 定</el-button>
         </span>
       </el-dialog>
+      <!-- 分配用户角色对话框 -->
+      <el-dialog
+        title="分配角色"
+        :visible.sync="setRoleDialogVisible"
+        width="50%"
+        @close="setRoleDialogClose"
+      >
+        <span> 用户名：</span> <input type="text" v-model="this.setForm.username" disabled> <br>
+        <span>当前角色：</span> <input type="text" v-model="this.setForm.role_name" disabled> <br>
+        <span>分配角色：</span><el-select v-model="roleId" placeholder="请选择">
+          <el-option
+            v-for="item in rolesList"
+            :key="item.id"
+            :label="item.roleName"
+            :value="item.id">
+          </el-option>
+        </el-select>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="setRole">确 定</el-button>
+        </span>
+      </el-dialog>
     </el-card>
   </div>
 </template>
@@ -160,7 +182,11 @@ export default {
           { validator: checkMobile, trigger: 'blur' }
         ]
       },
-      editDialogVisible: false
+      editDialogVisible: false,
+      setRoleDialogVisible: false,
+      setForm: {},
+      rolesList: [],
+      roleId: ''
     }
   },
   created () {
@@ -257,6 +283,33 @@ export default {
       if (res === 'cancel') {
         this.$message.info('取消删除成功')
       }
+    },
+    // 打开分配角色对话框
+    async setRoleDialogOpen (user) {
+      const { data: res } = await this.$http.get('roles')
+      if (res.meta.status !== 200) {
+        return this.$message.error('请求失败')
+      }
+      this.rolesList = res.data
+      this.setForm = user
+      this.setRoleDialogVisible = true
+    },
+    // 分配角色
+    async setRole () {
+      if (!this.roleId) {
+        return this.$message.info('请选择角色')
+      }
+      const { data: res } = await this.$http.put(`users/${this.setForm.id}/role`, { rid: this.roleId })
+      if (res.meta.status !== 200) {
+        return this.$message.error('分配角色失败')
+      }
+      this.$message.success('分配角色成功')
+      this.getUsersList()
+      this.setRoleDialogVisible = false
+    },
+    // 关闭分配角色对话框
+    setRoleDialogClose () {
+      this.roleId = ''
     }
   }
 
