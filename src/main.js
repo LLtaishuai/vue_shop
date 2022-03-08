@@ -7,7 +7,10 @@ import './plugins/element.js'
 import '@/assets/css/global.css'
 // 导入icon-font
 import '@/assets/fonts/iconfont.css'
-
+// 导入treeTable插件
+import TreeTable from 'vue-table-with-tree-grid'
+// 全局注册TreeTable
+Vue.component('tree-table', TreeTable)
 Vue.config.productionTip = false
 // 配置请求基地址
 axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
