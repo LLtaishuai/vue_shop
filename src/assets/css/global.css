@@ -5,6 +5,7 @@ body,
     margin: 0;
     padding: 0;
     min-width: 1366px;
+    overflow: auto;
 }
 /* 仅input textarea文字可选 */
 * {
@@ -36,3 +37,11 @@ textarea {
 .el-cascader-menu{
     height: 200px;
   }
+/*  全局步骤条样式*/
+.el-steps {
+    margin-top: 15px;
+}
+/*  全局富文本编辑器样式*/
+.ql-editor {
+  min-height: 300px;
+}

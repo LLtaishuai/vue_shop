@@ -8,7 +8,7 @@
       </div>
       <el-button type="info" @click="logout">退出</el-button></el-header
     >
-    <el-container>
+    <el-container class="content">
       <!-- 侧边栏 -->
       <el-aside :width="isCollapse ? '64px' : '200px'">
         <!-- 菜单展开收缩按钮 -->
@@ -130,5 +130,8 @@ export default {
   text-align: center;
   cursor: pointer;
   background-color: #4a5064;
+}
+.content{
+   height: calc(100vh - 60px);
 }
 </style>
