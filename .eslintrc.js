@@ -14,7 +14,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/multi-word-component-names': ['error', {
-      ignores: ['Users', 'Home', 'Login', 'Welcome', 'Rights', 'Roles', 'Cate', 'Params', 'List', 'Add', 'Order']
+      ignores: ['Users', 'Home', 'Login', 'Welcome', 'Rights', 'Roles', 'Cate', 'Params', 'List', 'Add', 'Order', 'Report']
     }]
   }
 }
