@@ -116,7 +116,6 @@ export default {
     addRole () {},
     // 编辑角色
     editRole (id) {
-      console.log(id)
     },
     // 删除角色
     delRole () {},

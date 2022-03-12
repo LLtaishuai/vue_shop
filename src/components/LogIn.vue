@@ -62,7 +62,6 @@ export default {
         // 用编程式导航跳转的Home
         window.sessionStorage.setItem('token', res.data.token)
         this.$router.push('/home')
-        console.log(res)
       })
     }
   }

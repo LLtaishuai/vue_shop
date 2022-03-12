@@ -142,7 +142,6 @@ export default {
       if (res.meta.status !== 200) return this.$message.error('获取订单列表失败!')
       this.ordersList = res.data.goods
       this.total = res.data.total
-      console.log(res)
     },
     handleSizeChange (newSize) {
       this.queryInfo.pagesize = newSize

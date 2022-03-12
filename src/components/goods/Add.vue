@@ -178,7 +178,6 @@ export default {
           item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
         })
         this.manyList = res.data
-        console.log(this.manyList)
       }
       // 进入商品属性
       if (this.stepNum === '2') {
@@ -192,7 +191,6 @@ export default {
           item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
         }) */
         this.onlyList = res.data
-        console.log(this.onlyList)
       }
     },
     beforeLeaveTab (activeName, oldActiveName) {
@@ -242,7 +240,6 @@ export default {
         }
         this.$message.success('添加成功！')
         this.$router.push('/goods')
-        console.log(_addForm)
       })
     }
   },
